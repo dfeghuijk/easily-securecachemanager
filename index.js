@@ -1,3 +1,9 @@
-const numbers = [1, 5, 2, 8];
-const max = Math.max(...numbers);
-console.log(max); // 8
+function isSubsequence(s, t) {
+  let i = 0;
+  let j = 0;
+  while (i < s.length && j < t.length) {
+    if (s[i] === t[j]) i++;
+    j++;
+  }
+  return i === s.length;
+}
