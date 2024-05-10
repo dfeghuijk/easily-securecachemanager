@@ -1,9 +1,15 @@
-function isSubsequence(s, t) {
-  let i = 0;
-  let j = 0;
-  while (i < s.length && j < t.length) {
-    if (s[i] === t[j]) i++;
-    j++;
+function longestValidParentheses(s) {
+  if (s.length === 0) return 0;
+  let max = 0;
+  const dp = new Array(s.length).fill(0);
+  for (let i = 1; i < s.length; i++) {
+    if (s[i] === ")") {
+      if (s[i - 1] === "(") dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+      else if (i - dp[i - 1] > 0 && s[i - dp[i - 1] - 1] === "(")
+        dp[i] =
+          dp[i - 1] + (i - dp[i - 1] >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
+      max = Math.max(max, dp[i]);
+    }
   }
-  return i === s.length;
+  return max;
 }
