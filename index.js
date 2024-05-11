@@ -1,15 +1,18 @@
-function longestValidParentheses(s) {
-  if (s.length === 0) return 0;
-  let max = 0;
-  const dp = new Array(s.length).fill(0);
-  for (let i = 1; i < s.length; i++) {
-    if (s[i] === ")") {
-      if (s[i - 1] === "(") dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
-      else if (i - dp[i - 1] > 0 && s[i - dp[i - 1] - 1] === "(")
-        dp[i] =
-          dp[i - 1] + (i - dp[i - 1] >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
-      max = Math.max(max, dp[i]);
-    }
+const binarySearchRecursive = (
+  arr,
+  target,
+  left = 0,
+  right = arr.length - 1,
+) => {
+  if (left > right) {
+    return -1;
   }
-  return max;
-}
+  const mid = Math.floor((left + right) / 2);
+  if (arr[mid] === target) {
+    return mid;
+  } else if (arr[mid] < target) {
+    return binarySearchRecursive(arr, target, mid + 1, right);
+  } else {
+    return binarySearchRecursive(arr, target, left, mid - 1);
+  }
+};
